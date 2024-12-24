@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prueba DIGECAM</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 0; }
+    .container { max-width: 600px; margin: auto; padding: 20px; }
+    .ad { width: 100%; height: 100px; margin: 10px auto; background: #ddd; text-align: center; line-height: 100px; }
+    .question { margin-bottom: 20px; text-align: left; }
+    .result { font-size: 1.2em; margin-top: 20px; }
+    button { padding: 10px 20px; margin-top: 20px; }
+    .correct-answer { color: green; }
+    .wrong-answer { color: red; }
+  </style>
+</head>
+<body>
+  <div class="ad">Publicidad</div>
+  <div class="container">
+    <h1>Prueba de la DIGECAM</h1>
+    <form id="quiz-form"></form>
+    <button id="submit">Calificar</button>
+    <div id="results" class="result"></div>
+    <button id="restart" style="display: none;">Reiniciar</button>
+  </div>
+  <div class="ad">Publicidad</div>
+
+  <script>
+    const questions = [
+      {
+        question: "¿Qué establece el artículo 4 de la Ley de Armas y Municiones?",
+        options: [
+          "Prohibición de portar armas sin licencia",
+          "Registro obligatorio de todas las armas",
+          "El derecho a la legítima defensa con armas",
+          "Sanciones por uso indebido de armas"
+        ],
+        answer: 2
+      },
+      {
+        question: "Según el artículo 9, ¿quiénes pueden portar armas?",
+        options: [
+          "Personas mayores de 18 años con licencia",
+          "Cualquier ciudadano mayor de edad",
+          "Únicamente autoridades de seguridad",
+          "Personas que residan en áreas rurales"
+        ],
+        answer: 0
+      },
+      {
+        question: "¿Qué regula el artículo 25?",
+        options: [
+          "La fabricación y ensamblaje de armas",
+          "El porte y tenencia de armas por civiles",
+          "El decomiso de armas ilegales",
+          "El transporte de armas en vehículos"
+        ],
+        answer: 1
+      },
+      {
+        question: "¿Qué establece el artículo 60 sobre armas automáticas?",
+        options: [
+          "Prohibición total de su uso",
+          "Uso restringido a fuerzas armadas",
+          "Registro especial para propietarios",
+          "Permiso solo en zonas de conflicto"
+        ],
+        answer: 1
+      },
+      {
+        question: "Según el artículo 119, ¿qué ocurre si se viola la ley?",
+        options: [
+          "Multas y sanciones penales",
+          "Confiscación de armas únicamente",
+          "Suspensión de licencias temporalmente",
+          "Advertencia antes de cualquier sanción"
+        ],
+        answer: 0
+      }
+    ];
+
+    const quizForm = document.getElementById("quiz-form");
+    const submitButton = document.getElementById("submit");
+    const resultsDiv = document.getElementById("results");
+    const restartButton = document.getElementById("restart");
+
+    function shuffle(array) {
+      return array.sort(() => Math.random() - 0.5);
+    }
+
+    function loadQuiz() {
+      quizForm.innerHTML = "";
+      resultsDiv.innerHTML = "";
+      submitButton.style.display = "inline";
+      restartButton.style.display = "none";
+
+      shuffle(questions).forEach((q, index) => {
+        const questionElement = document.createElement("div");
+        questionElement.classList.add("question");
+        questionElement.innerHTML = `
+          <p>${index + 1}. ${q.question}</p>
+          ${q.options
+            .map(
+              (opt, i) =>
+                `<label><input type="radio" name="question-${index}" value="${i}"> ${opt}</label><br>`
+            )
+            .join("")}
+        `;
+        quizForm.appendChild(questionElement);
+      });
+    }
+
+    function gradeQuiz() {
+      let score = 0;
+      let resultsHTML = "<h2>Resultados</h2>";
+
+      questions.forEach((q, index) => {
+        const selectedOption = quizForm[`question-${index}`].value;
+        if (selectedOption === undefined) {
+          resultsHTML += `<p>${index + 1}. ${q.question} - <span class="wrong-answer">Sin responder</span>. Respuesta correcta: <span class="correct-answer">${q.options[q.answer]}</span></p>`;
+        } else if (parseInt(selectedOption) === q.answer) {
+          score++;
+          resultsHTML += `<p>${index + 1}. ${q.question} - <span class="correct-answer">Correcto</span></p>`;
+        } else {
+          resultsHTML += `<p>${index + 1}. ${q.question} - <span class="wrong-answer">Incorrecto</span>. Respuesta correcta: <span class="correct-answer">${q.options[q.answer]}</span></p>`;
+        }
+      });
+
+      resultsHTML += `<p>Tu puntuación: ${score}/${questions.length}</p>`;
+      resultsDiv.innerHTML = resultsHTML;
+
+      submitButton.style.display = "none";
+      restartButton.style.display = "inline";
+    }
+
+    submitButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      gradeQuiz();
+    });
+
+    restartButton.addEventListener("click", loadQuiz);
+
+    loadQuiz();
+  </script>
+</body>
+</html>
