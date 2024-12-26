@@ -1,0 +1,32 @@
+name: Build and Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Ajusta el nombre de la rama si es necesario
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          npm install -g clean-css-cli uglify-js
+
+      - name: Minify CSS
+        run: |
+          clean-css -o dist/styles.min.css src/styles.css
+
+      - name: Minify JS
+        run: |
+          uglifyjs src/app.js -o dist/app.min.js
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: dist
