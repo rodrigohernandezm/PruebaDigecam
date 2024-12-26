@@ -1,17 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1648026384334176"
-     crossorigin="anonymous"></script>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QF0050DMP2"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-QF0050DMP2');
-  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prueba DIGECAM</title>
@@ -40,65 +29,55 @@
   <div class="ad">Publicidad</div>
 
   <script>
-const images = [
-  "https://github.com/usuario/repositorio/arma1.jpg",
-  "https://github.com/usuario/repositorio/arma2.jpg"
-];
-
-const series = [
+const imageQuestionBank = [
   {
-    name: "Serie 1",
+    image: "https://github.com/usuario/repositorio/arma1.jpg",
     questions: [
       {
-        question: "El Ejército de Guatemala podrá hacer uso de las armas necesarias para la defensa interna y externa del país...",
-        options: ["Verdadero", "Falso"],
-        answer: 0
-      },
-      {
-        question: "¿Cómo se clasifican las armas de fuego?",
-        options: [
-          "Armas cortas y largas",
-          "Armas bélicas, de uso individual, deportivas, de uso civil",
-          "Armas reconocidas internacionalmente por instituciones deportivas"
-        ],
-        answer: 1
-      },
-      // Más preguntas aquí...
-    ]
-  },
-  {
-    name: "Serie 2",
-    questions: [
-      {
-        question: "Herramienta diseñada para lanzar un proyectil utilizando la energía liberada por la combustión del propelente.",
-        options: ["Percutor", "Arma de fuego", "Proyectil", "Calibre"],
-        answer: 1
-      },
-      {
-        question: "Golpea el fulminante del cartucho, lo que provoca la ignición del cartucho.",
-        options: ["Percutor", "Aguja", "Arma de fuego", "Proyectil"],
-        answer: 0
-      },
-      // Más preguntas aquí...
-    ]
-  },
-  {
-    name: "Serie 3 - Imágenes",
-    questions: [
-      {
-        question: "¿Qué tipo de arma se muestra en la imagen?",
+        question: "¿Qué tipo de arma es esta?",
         options: ["Pistola", "Rifle", "Escopeta"],
         answer: 0
       },
       {
-        question: "¿En qué situación se utilizaría el arma de la imagen?",
-        options: ["Caza deportiva", "Defensa personal", "Uso bélico"],
+        question: "¿Cuál es el uso principal de esta arma?",
+        options: ["Defensa personal", "Caza", "Uso militar"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    image: "https://github.com/usuario/repositorio/arma2.jpg",
+    questions: [
+      {
+        question: "¿Qué parte del arma se muestra?",
+        options: ["Cañón", "Culata", "Disparador"],
+        answer: 2
+      },
+      {
+        question: "¿En qué contexto se usa esta parte del arma?",
+        options: ["Limpieza", "Disparo", "Montaje"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    image: "https://github.com/usuario/repositorio/imagen3.jpg",
+    questions: [
+      {
+        question: "¿Qué calibre es esta arma?",
+        options: ["9mm", "7.62mm", "5.56mm"],
+        answer: 0
+      },
+      {
+        question: "¿Qué tipo de munición usa?",
+        options: ["Cartuchos", "Balas de plomo", "Balas de goma"],
         answer: 1
       }
     ]
   }
 ];
 
+const staticImage = "https://via.placeholder.com/600x200.png?text=Publicidad";
 const quizForm = document.getElementById("quiz-form");
 const submitButton = document.getElementById("submit");
 const resultsDiv = document.getElementById("results");
@@ -115,69 +94,66 @@ function loadQuiz() {
   submitButton.style.display = "inline";
   restartButton.style.display = "none";
 
-  // Mostrar imagen aleatoria
-  const randomImage = images[Math.floor(Math.random() * images.length)];
-  quizImage.src = randomImage;
+  // Selección aleatoria de una imagen y sus preguntas
+  const randomImageQuestion = imageQuestionBank[Math.floor(Math.random() * imageQuestionBank.length)];
+  quizImage.src = randomImageQuestion.image;
 
-  series.forEach((serie, serieIndex) => {
-    const serieHeader = document.createElement("h2");
-    serieHeader.textContent = serie.name;
-    quizForm.appendChild(serieHeader);
+  // Cargar preguntas para la imagen seleccionada
+  randomImageQuestion.questions.forEach((q, index) => {
+    const questionElement = document.createElement("div");
+    questionElement.classList.add("question");
 
-    shuffle(serie.questions).forEach((q, index) => {
-      const questionElement = document.createElement("div");
-      questionElement.classList.add("question");
+    const questionText = `<p>${index + 1}. ${q.question}</p>`;
+    const dropdown = document.createElement("select");
+    dropdown.name = `image-question-${index}`;
 
-      const questionText = `<p>${index + 1}. ${q.question}</p>`;
-      const dropdown = document.createElement("select");
-      dropdown.name = `serie-${serieIndex}-question-${index}`;
+    const defaultOption = document.createElement("option");
+    defaultOption.value = "";
+    defaultOption.textContent = "Seleccione una respuesta";
+    defaultOption.disabled = true;
+    defaultOption.selected = true;
+    dropdown.appendChild(defaultOption);
 
-      const defaultOption = document.createElement("option");
-      defaultOption.value = "";
-      defaultOption.textContent = "Seleccione una respuesta";
-      defaultOption.disabled = true;
-      defaultOption.selected = true;
-      dropdown.appendChild(defaultOption);
-
-      q.options.forEach((opt, i) => {
-        const option = document.createElement("option");
-        option.value = i;
-        option.textContent = opt;
-        dropdown.appendChild(option);
-      });
-
-      questionElement.innerHTML = questionText;
-      questionElement.appendChild(dropdown);
-      quizForm.appendChild(questionElement);
+    q.options.forEach((opt, i) => {
+      const option = document.createElement("option");
+      option.value = i;
+      option.textContent = opt;
+      dropdown.appendChild(option);
     });
+
+    questionElement.innerHTML = questionText;
+    questionElement.appendChild(dropdown);
+    quizForm.appendChild(questionElement);
   });
+
+  // Agregar imagen estática
+  const adImage = document.createElement("img");
+  adImage.src = staticImage;
+  adImage.alt = "Imagen publicitaria";
+  quizForm.appendChild(adImage);
 }
 
 function gradeQuiz() {
   let overallScore = 0;
   let resultsHTML = "<h2>Resultados</h2>";
 
-  series.forEach((serie, serieIndex) => {
-    let score = 0;
-    resultsHTML += `<h3>${serie.name}</h3>`;
+  const randomImageQuestion = imageQuestionBank.find(
+    (imgQ) => imgQ.image === quizImage.src
+  );
 
-    serie.questions.forEach((q, index) => {
-      const selectedOption = quizForm[`serie-${serieIndex}-question-${index}`].value;
-      if (selectedOption === "" || selectedOption === undefined) {
-        resultsHTML += `<p>${index + 1}. ${q.question} - <span class="wrong-answer">Sin responder</span>. Respuesta correcta: <span class="correct-answer">${q.options[q.answer]}</span></p>`;
-      } else if (parseInt(selectedOption) === q.answer) {
-        score++;
-        overallScore++;
-        resultsHTML += `<p>${index + 1}. ${q.question} - <span class="correct-answer">Correcto</span></p>`;
-      } else {
-        resultsHTML += `<p>${index + 1}. ${q.question} - <span class="wrong-answer">Incorrecto</span>. Respuesta correcta: <span class="correct-answer">${q.options[q.answer]}</span></p>`;
-      }
-    });
-
-    resultsHTML += `<p>Puntuación de ${serie.name}: ${score}/${serie.questions.length}</p>`;
+  randomImageQuestion.questions.forEach((q, index) => {
+    const selectedOption = quizForm[`image-question-${index}`].value;
+    if (selectedOption === "" || selectedOption === undefined) {
+      resultsHTML += `<p>${index + 1}. ${q.question} - <span class="wrong-answer">Sin responder</span>. Respuesta correcta: <span class="correct-answer">${q.options[q.answer]}</span></p>`;
+    } else if (parseInt(selectedOption) === q.answer) {
+      overallScore++;
+      resultsHTML += `<p>${index + 1}. ${q.question} - <span class="correct-answer">Correcto</span></p>`;
+    } else {
+      resultsHTML += `<p>${index + 1}. ${q.question} - <span class="wrong-answer">Incorrecto</span>. Respuesta correcta: <span class="correct-answer">${q.options[q.answer]}</span></p>`;
+    }
   });
 
-  resultsHTML += `<p>Puntuación total: ${overallScore}/${series.reduce((sum, s) => sum + s.questions.length, 0)}</p>`;
+  resultsHTML += `<p>Puntuación total: ${overallScore}/${randomImageQuestion.questions.length}</p>`;
   resultsDiv.innerHTML = resultsHTML;
 
   submitButton.style.display = "none";
