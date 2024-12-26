@@ -4,14 +4,14 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1648026384334176"
      crossorigin="anonymous"></script>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QF0050DMP2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QF0050DMP2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-  gtag('config', 'G-QF0050DMP2');
-</script>
+    gtag('config', 'G-QF0050DMP2');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prueba DIGECAM</title>
@@ -24,12 +24,14 @@
     button { padding: 10px 20px; margin-top: 20px; }
     .correct-answer { color: green; }
     .wrong-answer { color: red; }
+    img { max-width: 100%; height: auto; margin: 10px 0; }
   </style>
 </head>
 <body>
   <div class="ad">Publicidad</div>
   <div class="container">
     <h1>Prueba de la DIGECAM</h1>
+    <img id="quiz-image" src="" alt="Imagen del examen">
     <form id="quiz-form"></form>
     <button id="submit">Calificar</button>
     <div id="results" class="result"></div>
@@ -38,6 +40,11 @@
   <div class="ad">Publicidad</div>
 
   <script>
+const images = [
+  "https://github.com/usuario/repositorio/arma1.jpg",
+  "https://github.com/usuario/repositorio/arma2.jpg"
+];
+
 const series = [
   {
     name: "Serie 1",
@@ -56,45 +63,14 @@ const series = [
         ],
         answer: 1
       },
-      {
-        question: "El agente de seguridad privada tiene permitido desarmar su arma durante su servicio.",
-        options: ["Verdadero", "Falso"],
-        answer: 1
-      },
-      {
-        question: "Las personas que poseen licencia de portación de arma de fuego, podrán portar su arma descubierta y de manera ostentosa e intimidatoria solo por haber cumplido con los requisitos de ley.",
-        options: ["Verdadero", "Falso"],
-        answer: 1
-      },
-      {
-        question: "Interrupción en el funcionamiento de un arma de fuego",
-        options: ["Calentamiento", "Falla", "Percutor"],
-        answer: 1
-      },
-      {
-        question: "Arma de fuego corta, de funcionamiento semiautomático",
-        options: ["Escopeta", "Revolver", "Pistola"],
-        answer: 2
-      }, 
-      {
-        question: "Artículo 62: Todos los ciudadanos tienen derecho de tener armas de fuego en su lugar de habitación, salvo las que las que la ley prohíba, cumpliendo únicamente con los requisitos expresamente consignados en la presente ley. Como se llama dicho documento que propocionará DIGECAM",
-        options: ["Licencia de portación", "Declaración jurada", "Tenencia"],
-        answer : 2
-      },
-      {
-        question: "Artículo 80: No podrá concederse licencia de portación de arma de fuego a las siguientes:",
-        options: ["Personas que laboran en seguridad privada", "Personas declaradas en estado de interdicción", "Personas con antecedentes policiacos limpios"],
-        answer: 1
-
-      }
-    
+      // Más preguntas aquí...
     ]
   },
   {
     name: "Serie 2",
     questions: [
       {
-        question: "Herramienta diseñada para lanzar un pryectil utilizando la energia liberada por la combustión del propelente.",
+        question: "Herramienta diseñada para lanzar un proyectil utilizando la energía liberada por la combustión del propelente.",
         options: ["Percutor", "Arma de fuego", "Proyectil", "Calibre"],
         answer: 1
       },
@@ -103,22 +79,21 @@ const series = [
         options: ["Percutor", "Aguja", "Arma de fuego", "Proyectil"],
         answer: 0
       },
+      // Más preguntas aquí...
+    ]
+  },
+  {
+    name: "Serie 3 - Imágenes",
+    questions: [
       {
-        question: "Corresponde a la medida del diametro del cañon del arma o al diametro externo del cuerpo de la bala.",
-        options: ["Recamara", "Seguro", "Proyectil", "Calibre"],
-        answer: 3
+        question: "¿Qué tipo de arma se muestra en la imagen?",
+        options: ["Pistola", "Rifle", "Escopeta"],
+        answer: 0
       },
       {
-        question: "Establecimiento que cuenta con la infraestructura necesaria para la práctica de tiro deportivo o de defensa",
-        options: ["Digecam", "Recamara", "Poligono", "Campo"],
-        answer: 2
-      },
-      {
-        question: "Despues de cada disparo se recarga automaticamente y solo es posible efectuar un disparo al accionar el disparador",
-        options: ["Arma de fuego", "Arma semiautomatica", "Calibre", "Percutor"],
+        question: "¿En qué situación se utilizaría el arma de la imagen?",
+        options: ["Caza deportiva", "Defensa personal", "Uso bélico"],
         answer: 1
-
-
       }
     ]
   }
@@ -128,6 +103,7 @@ const quizForm = document.getElementById("quiz-form");
 const submitButton = document.getElementById("submit");
 const resultsDiv = document.getElementById("results");
 const restartButton = document.getElementById("restart");
+const quizImage = document.getElementById("quiz-image");
 
 function shuffle(array) {
   return array.sort(() => Math.random() - 0.5);
@@ -139,6 +115,10 @@ function loadQuiz() {
   submitButton.style.display = "inline";
   restartButton.style.display = "none";
 
+  // Mostrar imagen aleatoria
+  const randomImage = images[Math.floor(Math.random() * images.length)];
+  quizImage.src = randomImage;
+
   series.forEach((serie, serieIndex) => {
     const serieHeader = document.createElement("h2");
     serieHeader.textContent = serie.name;
@@ -149,37 +129,25 @@ function loadQuiz() {
       questionElement.classList.add("question");
 
       const questionText = `<p>${index + 1}. ${q.question}</p>`;
+      const dropdown = document.createElement("select");
+      dropdown.name = `serie-${serieIndex}-question-${index}`;
 
-      if (serieIndex === 0) { // Serie 1: Radio buttons
-        const options = q.options
-          .map(
-            (opt, i) =>
-              `<label><input type="radio" name="serie-${serieIndex}-question-${index}" value="${i}"> ${opt}</label><br>`
-          )
-          .join("");
-        questionElement.innerHTML = questionText + options;
-      } else if (serieIndex === 1) { // Serie 2: Dropdown list
-        const dropdown = document.createElement("select");
-        dropdown.name = `serie-${serieIndex}-question-${index}`;
+      const defaultOption = document.createElement("option");
+      defaultOption.value = "";
+      defaultOption.textContent = "Seleccione una respuesta";
+      defaultOption.disabled = true;
+      defaultOption.selected = true;
+      dropdown.appendChild(defaultOption);
 
-        const defaultOption = document.createElement("option");
-        defaultOption.value = "";
-        defaultOption.textContent = "Seleccione una respuesta";
-        defaultOption.disabled = true;
-        defaultOption.selected = true;
-        dropdown.appendChild(defaultOption);
+      q.options.forEach((opt, i) => {
+        const option = document.createElement("option");
+        option.value = i;
+        option.textContent = opt;
+        dropdown.appendChild(option);
+      });
 
-        q.options.forEach((opt, i) => {
-          const option = document.createElement("option");
-          option.value = i;
-          option.textContent = opt;
-          dropdown.appendChild(option);
-        });
-
-        questionElement.innerHTML = questionText;
-        questionElement.appendChild(dropdown);
-      }
-
+      questionElement.innerHTML = questionText;
+      questionElement.appendChild(dropdown);
       quizForm.appendChild(questionElement);
     });
   });
@@ -225,9 +193,5 @@ restartButton.addEventListener("click", loadQuiz);
 
 loadQuiz();
   </script>
-<h2> </h2>
-<img src="https://raw.githubusercontent.com/rodrigohernandezm/PruebaDigecam/main/banner_prueba.jpg" alt="Trulli" width="250" height="160">
-
-
 </body>
 </html>
