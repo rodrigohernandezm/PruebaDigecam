@@ -29,220 +29,153 @@
   <div class="ad">Publicidad</div>
 
   <script>
-const questions = [
+const series = [
+  {
+    name: "Serie 1",
+    questions: [
       {
-        question: "¿Qué establece el artículo 4 de la Ley de Armas y Municiones?",
-        options: [
-          "Prohibición de portar armas sin licencia",
-          "Registro obligatorio de todas las armas",
-          "El derecho a la legítima defensa con armas",
-          "Sanciones por uso indebido de armas"
-        ],
-        answer: 2
-      },
-      {
-        question: "¿Cómo se clasifican las armas de fuego?", 
-        options: [
-        "Armas cortas y largas",
-        "Armas belicas, de uso individual, deportivas, de uso civil",
-        "Armas reconocidas internacionalmente por instituciones deportivas"
-        ],
-        answer: 2
-      },
-      {
-        question: "Según el artículo 9, ¿quiénes pueden portar armas?",
-        options: [
-          "Personas mayores de 18 años con licencia",
-          "Cualquier ciudadano mayor de edad",
-          "Únicamente autoridades de seguridad",
-          "Personas que residan en áreas rurales"
-        ],
+        question: "El Ejército de Guatemala podrá hacer uso de las armas necesarias para la defensa interna y externa del país...",
+        options: ["Verdadero", "Falso"],
         answer: 0
       },
       {
-    question: "¿Qué establece el artículo 1 de la Ley de Armas y Municiones?",
-    options: [
-      "Regula el uso de armas biológicas",
-      "Norma la tenencia y portación de armas y municiones",
-      "Prohíbe la importación de armas de fuego",
-      "Establece sanciones para delitos con armas"
-    ],
-    answer: 1
-  },
-  {
-    question: "¿Cuál es el objetivo del artículo 2?",
-    options: [
-      "Prohibir el uso de armas de fuego",
-      "Regular todos los aspectos relacionados con las armas y municiones",
-      "Establecer la DIGECAM",
-      "Clasificar las armas permitidas"
-    ],
-    answer: 1
-  },
-  {
-    question: "¿Qué clasifica el artículo 4?",
-    options: [
-      "Los tipos de municiones",
-      "Las sanciones por tenencia ilegal",
-      "Las armas según su uso",
-      "Las licencias requeridas"
-    ],
-    answer: 2
-  },
-  {
-    question: "¿Qué establece el artículo 25 sobre la información recibida por la DIGECAM?",
-    options: [
-      "Es confidencial y solo puede ser usada internamente",
-      "Es pública y puede ser utilizada por autoridades competentes",
-      "Debe mantenerse en secreto absoluto",
-      "Solo puede ser divulgada con autorización judicial"
-    ],
-    answer: 1
-  },
-  {
-    question: "¿Qué regula el artículo 60 sobre la compraventa de municiones?",
-    options: [
-      "Prohibición de la compraventa entre particulares",
-      "Límite mensual de adquisición por persona",
-      "Importación exclusiva por DIGECAM",
-      "Venta libre sin restricciones"
-    ],
-    answer: 1
-  },
-  {
-    question: "¿Qué documento autoriza la portación de armas según el artículo 72?",
-    options: [
-      "Certificado de antecedentes penales",
-      "Tarjeta de registro de tenencia",
-      "Licencia de portación",
-      "Contrato de compraventa"
-    ],
-    answer: 2
-  },
-  {
-    question: "¿Qué establece el artículo 79 sobre las armas utilizadas por empresas de seguridad privada?",
-    options: [
-      "Pueden usar cualquier tipo de arma",
-      "Solo pueden usar armas de uso civil",
-      "Requieren autorización del Congreso",
-      "No están reguladas por esta ley"
-    ],
-    answer: 1
-  },
-  {
-    question: "¿Qué establece el artículo 80 sobre la portación de armas?",
-    options: [
-      "Prohíbe la portación a menores de 21 años",
-      "Permite la portación con una licencia especial",
-      "Prohíbe la portación a menores de 25 años",
-      "Solo permite portar armas deportivas"
-    ],
-    answer: 2
-  },
-  {
-    question: "¿Qué regula el artículo 63 sobre el registro de tenencia?",
-    options: [
-      "Prohíbe registrar armas deportivas",
-      "Establece los requisitos para registrar armas",
-      "Limita la tenencia a una sola arma por persona",
-      "Autoriza la tenencia sin registro previo"
-    ],
-    answer: 1
-  },
-      {
-        question: "¿Qué regula el artículo 25?",
+        question: "¿Cómo se clasifican las armas de fuego?",
         options: [
-          "La fabricación y ensamblaje de armas",
-          "El porte y tenencia de armas por civiles",
-          "El decomiso de armas ilegales",
-          "El transporte de armas en vehículos"
+          "Armas cortas y largas",
+          "Armas bélicas, de uso individual, deportivas, de uso civil",
+          "Armas reconocidas internacionalmente por instituciones deportivas"
         ],
         answer: 1
       },
       {
-        question: "¿Qué establece el artículo 60 sobre armas automáticas?",
-        options: [
-          "Prohibición total de su uso",
-          "Uso restringido a fuerzas armadas",
-          "Registro especial para propietarios",
-          "Permiso solo en zonas de conflicto"
-        ],
+        question: "El agente de seguridad privada tiene permitido desarmar su arma durante su servicio...",
+        options: ["Verdadero", "Falso"],
         answer: 1
-      },
-      {
-        question: "Según el artículo 119, ¿qué ocurre si se viola la ley?",
-        options: [
-          "Multas y sanciones penales",
-          "Confiscación de armas únicamente",
-          "Suspensión de licencias temporalmente",
-          "Advertencia antes de cualquier sanción"
-        ],
-        answer: 0
       }
-    ];
-    
-    const quizForm = document.getElementById("quiz-form");
-    const submitButton = document.getElementById("submit");
-    const resultsDiv = document.getElementById("results");
-    const restartButton = document.getElementById("restart");
+    ]
+  },
+  {
+    name: "Serie 2",
+    questions: [
+      {
+        question: "HERRAMIENTA DISEÑADA PARA LANZAR UN PROYECTIL UTILIZANDO LA ENERGIA LIBERADA POR LA COMBUSTION DEL PROPELENTE.",
+        options: ["Respuesta 1", "Respuesta 2", "Respuesta 3", "Respuesta 4"],
+        answer: 0
+      },
+      {
+        question: "GOLPEA EL FULMINANTE DEL CARTUCHO, POR LO QUE PROBOCA LA IGNICION DEL CARTUCHO...",
+        options: ["Respuesta 2", "Respuesta 3", "Respuesta 4", "Respuesta 5"],
+        answer: 1
+      },
+      {
+        question: "CORRESPONDE A LA MEDIDIA DEL DIAMETRO DEL CAÑON DEL ARMA...",
+        options: ["Respuesta 4", "Respuesta 5", "Respuesta 6", "Respuesta 7"],
+        answer: 1
+      }
+    ]
+  }
+];
 
-    function shuffle(array) {
-      return array.sort(() => Math.random() - 0.5);
-    }
+const quizForm = document.getElementById("quiz-form");
+const submitButton = document.getElementById("submit");
+const resultsDiv = document.getElementById("results");
+const restartButton = document.getElementById("restart");
 
-    function loadQuiz() {
-      quizForm.innerHTML = "";
-      resultsDiv.innerHTML = "";
-      submitButton.style.display = "inline";
-      restartButton.style.display = "none";
+function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
 
-      shuffle(questions).forEach((q, index) => {
-        const questionElement = document.createElement("div");
-        questionElement.classList.add("question");
-        questionElement.innerHTML = `
-          <p>${index + 1}. ${q.question}</p>
-          ${q.options
-            .map(
-              (opt, i) =>
-                `<label><input type="radio" name="question-${index}" value="${i}"> ${opt}</label><br>`
-            )
-            .join("")}
-        `;
-        quizForm.appendChild(questionElement);
-      });
-    }
+function loadQuiz() {
+  quizForm.innerHTML = "";
+  resultsDiv.innerHTML = "";
+  submitButton.style.display = "inline";
+  restartButton.style.display = "none";
 
-    function gradeQuiz() {
-      let score = 0;
-      let resultsHTML = "<h2>Resultados</h2>";
+  series.forEach((serie, serieIndex) => {
+    const serieHeader = document.createElement("h2");
+    serieHeader.textContent = serie.name;
+    quizForm.appendChild(serieHeader);
 
-      questions.forEach((q, index) => {
-        const selectedOption = quizForm[`question-${index}`].value;
-        if (selectedOption === undefined) {
-          resultsHTML += `<p>${index + 1}. ${q.question} - <span class="wrong-answer">Sin responder</span>. Respuesta correcta: <span class="correct-answer">${q.options[q.answer]}</span></p>`;
-        } else if (parseInt(selectedOption) === q.answer) {
-          score++;
-          resultsHTML += `<p>${index + 1}. ${q.question} - <span class="correct-answer">Correcto</span></p>`;
-        } else {
-          resultsHTML += `<p>${index + 1}. ${q.question} - <span class="wrong-answer">Incorrecto</span>. Respuesta correcta: <span class="correct-answer">${q.options[q.answer]}</span></p>`;
-        }
-      });
+    shuffle(serie.questions).forEach((q, index) => {
+      const questionElement = document.createElement("div");
+      questionElement.classList.add("question");
 
-      resultsHTML += `<p>Tu puntuación: ${score}/${questions.length}</p>`;
-      resultsDiv.innerHTML = resultsHTML;
+      const questionText = `<p>${index + 1}. ${q.question}</p>`;
 
-      submitButton.style.display = "none";
-      restartButton.style.display = "inline";
-    }
+      if (serieIndex === 0) { // Serie 1: Radio buttons
+        const options = q.options
+          .map(
+            (opt, i) =>
+              `<label><input type="radio" name="serie-${serieIndex}-question-${index}" value="${i}"> ${opt}</label><br>`
+          )
+          .join("");
+        questionElement.innerHTML = questionText + options;
+      } else if (serieIndex === 1) { // Serie 2: Dropdown list
+        const dropdown = document.createElement("select");
+        dropdown.name = `serie-${serieIndex}-question-${index}`;
 
-    submitButton.addEventListener("click", (e) => {
-      e.preventDefault();
-      gradeQuiz();
+        const defaultOption = document.createElement("option");
+        defaultOption.value = "";
+        defaultOption.textContent = "Seleccione una respuesta";
+        defaultOption.disabled = true;
+        defaultOption.selected = true;
+        dropdown.appendChild(defaultOption);
+
+        q.options.forEach((opt, i) => {
+          const option = document.createElement("option");
+          option.value = i;
+          option.textContent = opt;
+          dropdown.appendChild(option);
+        });
+
+        questionElement.innerHTML = questionText;
+        questionElement.appendChild(dropdown);
+      }
+
+      quizForm.appendChild(questionElement);
+    });
+  });
+}
+
+function gradeQuiz() {
+  let overallScore = 0;
+  let resultsHTML = "<h2>Resultados</h2>";
+
+  series.forEach((serie, serieIndex) => {
+    let score = 0;
+    resultsHTML += `<h3>${serie.name}</h3>`;
+
+    serie.questions.forEach((q, index) => {
+      const selectedOption = quizForm[`serie-${serieIndex}-question-${index}`].value;
+      if (selectedOption === "" || selectedOption === undefined) {
+        resultsHTML += `<p>${index + 1}. ${q.question} - <span class="wrong-answer">Sin responder</span>. Respuesta correcta: <span class="correct-answer">${q.options[q.answer]}</span></p>`;
+      } else if (parseInt(selectedOption) === q.answer) {
+        score++;
+        overallScore++;
+        resultsHTML += `<p>${index + 1}. ${q.question} - <span class="correct-answer">Correcto</span></p>`;
+      } else {
+        resultsHTML += `<p>${index + 1}. ${q.question} - <span class="wrong-answer">Incorrecto</span>. Respuesta correcta: <span class="correct-answer">${q.options[q.answer]}</span></p>`;
+      }
     });
 
-    restartButton.addEventListener("click", loadQuiz);
+    resultsHTML += `<p>Puntuación de ${serie.name}: ${score}/${serie.questions.length}</p>`;
+  });
 
-    loadQuiz();
+  resultsHTML += `<p>Puntuación total: ${overallScore}/${series.reduce((sum, s) => sum + s.questions.length, 0)}</p>`;
+  resultsDiv.innerHTML = resultsHTML;
+
+  submitButton.style.display = "none";
+  restartButton.style.display = "inline";
+}
+
+submitButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  gradeQuiz();
+});
+
+restartButton.addEventListener("click", loadQuiz);
+
+loadQuiz();
   </script>
 </body>
 </html>
