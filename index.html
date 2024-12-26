@@ -29,7 +29,7 @@
   <div class="ad">Publicidad</div>
 
   <script>
-    const questions = [
+const questions = [
       {
         question: "¿Qué establece el artículo 4 de la Ley de Armas y Municiones?",
         options: [
@@ -37,6 +37,15 @@
           "Registro obligatorio de todas las armas",
           "El derecho a la legítima defensa con armas",
           "Sanciones por uso indebido de armas"
+        ],
+        answer: 2
+      },
+      {
+        question: "¿Cómo se clasifican las armas de fuego?", 
+        options: [
+        "Armas cortas y largas",
+        "Armas belicas, de uso individual, deportivas, de uso civil",
+        "Armas reconocidas internacionalmente por instituciones deportivas"
         ],
         answer: 2
       },
@@ -50,6 +59,96 @@
         ],
         answer: 0
       },
+      {
+    question: "¿Qué establece el artículo 1 de la Ley de Armas y Municiones?",
+    options: [
+      "Regula el uso de armas biológicas",
+      "Norma la tenencia y portación de armas y municiones",
+      "Prohíbe la importación de armas de fuego",
+      "Establece sanciones para delitos con armas"
+    ],
+    answer: 1
+  },
+  {
+    question: "¿Cuál es el objetivo del artículo 2?",
+    options: [
+      "Prohibir el uso de armas de fuego",
+      "Regular todos los aspectos relacionados con las armas y municiones",
+      "Establecer la DIGECAM",
+      "Clasificar las armas permitidas"
+    ],
+    answer: 1
+  },
+  {
+    question: "¿Qué clasifica el artículo 4?",
+    options: [
+      "Los tipos de municiones",
+      "Las sanciones por tenencia ilegal",
+      "Las armas según su uso",
+      "Las licencias requeridas"
+    ],
+    answer: 2
+  },
+  {
+    question: "¿Qué establece el artículo 25 sobre la información recibida por la DIGECAM?",
+    options: [
+      "Es confidencial y solo puede ser usada internamente",
+      "Es pública y puede ser utilizada por autoridades competentes",
+      "Debe mantenerse en secreto absoluto",
+      "Solo puede ser divulgada con autorización judicial"
+    ],
+    answer: 1
+  },
+  {
+    question: "¿Qué regula el artículo 60 sobre la compraventa de municiones?",
+    options: [
+      "Prohibición de la compraventa entre particulares",
+      "Límite mensual de adquisición por persona",
+      "Importación exclusiva por DIGECAM",
+      "Venta libre sin restricciones"
+    ],
+    answer: 1
+  },
+  {
+    question: "¿Qué documento autoriza la portación de armas según el artículo 72?",
+    options: [
+      "Certificado de antecedentes penales",
+      "Tarjeta de registro de tenencia",
+      "Licencia de portación",
+      "Contrato de compraventa"
+    ],
+    answer: 2
+  },
+  {
+    question: "¿Qué establece el artículo 79 sobre las armas utilizadas por empresas de seguridad privada?",
+    options: [
+      "Pueden usar cualquier tipo de arma",
+      "Solo pueden usar armas de uso civil",
+      "Requieren autorización del Congreso",
+      "No están reguladas por esta ley"
+    ],
+    answer: 1
+  },
+  {
+    question: "¿Qué establece el artículo 80 sobre la portación de armas?",
+    options: [
+      "Prohíbe la portación a menores de 21 años",
+      "Permite la portación con una licencia especial",
+      "Prohíbe la portación a menores de 25 años",
+      "Solo permite portar armas deportivas"
+    ],
+    answer: 2
+  },
+  {
+    question: "¿Qué regula el artículo 63 sobre el registro de tenencia?",
+    options: [
+      "Prohíbe registrar armas deportivas",
+      "Establece los requisitos para registrar armas",
+      "Limita la tenencia a una sola arma por persona",
+      "Autoriza la tenencia sin registro previo"
+    ],
+    answer: 1
+  },
       {
         question: "¿Qué regula el artículo 25?",
         options: [
@@ -81,7 +180,7 @@
         answer: 0
       }
     ];
-
+    
     const quizForm = document.getElementById("quiz-form");
     const submitButton = document.getElementById("submit");
     const resultsDiv = document.getElementById("results");
