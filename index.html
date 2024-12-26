@@ -20,7 +20,8 @@
     .container { max-width: 600px; margin: auto; padding: 20px; }
     .ad { width: 100%; height: 100px; margin: 10px auto; background: #ddd; text-align: center; line-height: 100px; }
     .question { margin-bottom: 20px; text-align: left; }
-    .result { font-size: 1.2em; margin-top: 20px; }
+    .result { font-size: 1.2em; margin-top: 20px; text-align: justify; }
+    .result p { text-align: justify; } /* Asegura que cada párrafo esté justificado */
     button { padding: 10px 20px; margin-top: 20px; }
     .correct-answer { color: green; }
     .wrong-answer { color: red; }
@@ -85,9 +86,7 @@ const series = [
         question: "Artículo 80: No podrá concederse licencia de portación de arma de fuego a las siguientes:",
         options: ["Personas que laboran en seguridad privada", "Personas declaradas en estado de interdicción", "Personas con antecedentes policiacos limpios"],
         answer: 1
-
       }
-    
     ]
   },
   {
@@ -117,8 +116,6 @@ const series = [
         question: "Despues de cada disparo se recarga automaticamente y solo es posible efectuar un disparo al accionar el disparador",
         options: ["Arma de fuego", "Arma semiautomatica", "Calibre", "Percutor"],
         answer: 1
-
-
       }
     ]
   }
@@ -227,7 +224,5 @@ loadQuiz();
   </script>
 <h2> </h2>
 <img src="https://raw.githubusercontent.com/rodrigohernandezm/PruebaDigecam/main/banner_prueba.jpg" alt="Trulli" width="250" height="160">
-
-
 </body>
 </html>
