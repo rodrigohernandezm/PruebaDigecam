@@ -96,7 +96,37 @@
   <div class="ad">Publicidad aquí</div>
   <div class="container">
     <h1>Prueba de la DIGECAM</h1>
-    <form id="quiz-form"></form>
+
+    <form id="quiz-form">
+      <div class="question-card">
+        <h3>1. ¿Cuál es el arma más adecuada para defensa personal?</h3>
+        <label><input type="radio" name="q1" value="a"> Rifle de asalto</label><br>
+        <label><input type="radio" name="q1" value="b"> Pistola</label><br>
+        <label><input type="radio" name="q1" value="c"> Escopeta</label><br>
+      </div>
+
+      <div class="question-card">
+        <h3>2. ¿Qué es lo primero que debes hacer al manipular un arma?</h3>
+        <label><input type="radio" name="q2" value="a"> Verificar que esté cargada</label><br>
+        <label><input type="radio" name="q2" value="b"> Apuntar hacia un objetivo</label><br>
+        <label><input type="radio" name="q2" value="c"> Comprobar que esté descargada</label><br>
+      </div>
+
+      <div class="question-card">
+        <h3>3. ¿Cuál es la distancia mínima para practicar en un polígono de tiro?</h3>
+        <label><input type="radio" name="q3" value="a"> 5 metros</label><br>
+        <label><input type="radio" name="q3" value="b"> 10 metros</label><br>
+        <label><input type="radio" name="q3" value="c"> 15 metros</label><br>
+      </div>
+
+      <div class="question-card">
+        <h3>4. ¿Qué hacer si un arma se atasca durante su uso?</h3>
+        <label><input type="radio" name="q4" value="a"> Forzar el disparo</label><br>
+        <label><input type="radio" name="q4" value="b"> Apuntar al suelo y liberar el cartucho</label><br>
+        <label><input type="radio" name="q4" value="c"> Seguir disparando</label><br>
+      </div>
+    </form>
+
     <button id="submit">Calificar</button>
     <div id="results" class="result" style="display: none;"></div>
     <button id="restart" style="display: none;">Reiniciar</button>
@@ -104,7 +134,50 @@
   <div class="ad">Publicidad aquí</div>
 
   <script>
-    // Aquí va tu script original
+    document.getElementById('submit').addEventListener('click', function() {
+      const form = document.getElementById('quiz-form');
+      const results = document.getElementById('results');
+      let correctAnswers = 0;
+
+      const answers = {
+        q1: 'b',
+        q2: 'c',
+        q3: 'b',
+        q4: 'b'
+      };
+
+      Object.keys(answers).forEach(question => {
+        const selected = form.querySelector(`input[name="${question}"]:checked`);
+        if (selected && selected.value === answers[question]) {
+          correctAnswers++;
+        }
+      });
+
+      results.style.display = 'block';
+      results.innerHTML = `Respondiste correctamente ${correctAnswers} de ${Object.keys(answers).length} preguntas.`;
+
+      if (correctAnswers === Object.keys(answers).length) {
+        results.classList.remove('wrong-answer');
+        results.classList.add('correct-answer');
+        results.innerHTML += ' ¡Felicidades, pasaste la prueba!';
+      } else {
+        results.classList.remove('correct-answer');
+        results.classList.add('wrong-answer');
+        results.innerHTML += ' Intenta nuevamente.';
+      }
+
+      document.getElementById('submit').style.display = 'none';
+      document.getElementById('restart').style.display = 'inline-block';
+    });
+
+    document.getElementById('restart').addEventListener('click', function() {
+      const form = document.getElementById('quiz-form');
+      form.reset();
+      const results = document.getElementById('results');
+      results.style.display = 'none';
+      document.getElementById('submit').style.display = 'inline-block';
+      document.getElementById('restart').style.display = 'none';
+    });
   </script>
 </body>
 </html>
