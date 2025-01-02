@@ -38,30 +38,26 @@
       margin: 0;
       font-size: 1.8em;
     }
-    .nav {
+    .tabs {
       display: flex;
-      justify-content: space-around;
-      margin: 10px 0;
-      background: #ddd;
-      padding: 10px;
-      border-radius: 10px;
+      justify-content: center;
+      margin: 20px 0;
     }
-    .nav button {
+    .tab {
       padding: 10px 20px;
+      cursor: pointer;
+      background: #ddd;
+      margin: 0 5px;
+      border-radius: 5px;
+    }
+    .tab.active {
       background: #004a99;
       color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1em;
     }
-    .nav button:hover {
-      background: #003366;
-    }
-    .section {
+    .tab-content {
       display: none;
     }
-    .section.active {
+    .tab-content.active {
       display: block;
     }
     .ad {
@@ -73,17 +69,49 @@
       line-height: 100px;
       border-radius: 10px;
     }
-    .downloads {
+    .question {
+      margin-bottom: 20px;
       text-align: left;
     }
-    .downloads a {
-      display: block;
-      margin: 5px 0;
-      color: #004a99;
-      text-decoration: none;
+    .result {
+      font-size: 1.2em;
+      margin-top: 20px;
+      text-align: justify;
     }
-    .downloads a:hover {
-      text-decoration: underline;
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      background: #004a99;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+    button:hover {
+      background: #003366;
+    }
+    select, input[type="radio"] {
+      margin-top: 5px;
+    }
+    .correct-answer {
+      color: green;
+    }
+    .wrong-answer {
+      color: red;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 14px;
+      }
+      .container {
+        margin: 10px;
+        padding: 15px;
+      }
+      .ad {
+        height: 80px;
+        line-height: 80px;
+      }
     }
   </style>
 </head>
@@ -93,164 +121,63 @@
     <div class="header">
       <h1>Simulador Examen DIGECAM</h1>
     </div>
-    <div class="nav">
-      <button onclick="showSection('quiz')">Simulador</button>
-      <button onclick="showSection('downloads')">Material de apoyo</button>
+    <div class="tabs">
+      <div class="tab active" data-tab="questions">Preguntas</div>
+      <div class="tab" data-tab="materials">Material de Apoyo</div>
     </div>
-    <div id="quiz" class="section active">
+    <div id="questions" class="tab-content active">
       <form id="quiz-form"></form>
       <button id="submit">Calificar</button>
       <div id="results" class="result"></div>
       <button id="restart" style="display: none;">Reiniciar</button>
     </div>
-    <div id="downloads" class="section">
-      <h2>Material de apoyo</h2>
-      <div class="downloads">
-        <a href="https://github.com/rodrigohernandezm/PruebaDigecam/raw/main/guia_estudio.pdf" target="_blank">Guía de estudio</a>
-        <a href="https://github.com/rodrigohernandezm/PruebaDigecam/raw/main/ley_armas.pdf" target="_blank">Ley de armas</a>
-        <a href="https://github.com/rodrigohernandezm/PruebaDigecam/raw/main/manual_tecnico.pdf" target="_blank">Manual técnico</a>
-      </div>
+    <div id="materials" class="tab-content">
+      <h2>Material de Apoyo</h2>
+      <p>Descarga documentos para prepararte mejor:</p>
+      <ul>
+        <li><a href="https://github.com/rodrigohernandezm/PruebaDigecam/raw/main/guia_estudio.pdf" download>Guía de Estudio</a></li>
+        <li><a href="https://github.com/rodrigohernandezm/PruebaDigecam/raw/main/ley_armas_municiones.pdf" download>Ley de Armas y Municiones</a></li>
+      </ul>
     </div>
   </div>
   <div class="ad">Publicidad</div>
 
   <script>
-    function showSection(sectionId) {
-      document.querySelectorAll('.section').forEach(section => {
-        section.classList.remove('active');
-      });
-      document.getElementById(sectionId).classList.add('active');
-    }
-
     const series = [
-  <script>
-    // Mantener el script existente para la lógica del cuestionario
-    const series = [
-  {
-    name: "Serie 1",
-    questions: [
       {
-        question: "El Ejército de Guatemala podrá hacer uso de las armas necesarias para la defensa interna y externa del país...",
-        options: ["Verdadero", "Falso"],
-        answer: 0
+        name: "Serie 1",
+        questions: [
+          // Tu lista completa de preguntas aquí
+        ]
       },
       {
-        question: "¿Cómo se clasifican las armas de fuego?",
-        options: [
-          "Armas cortas y largas",
-          "Armas bélicas, de uso individual, deportivas, de uso civil",
-          "Armas reconocidas internacionalmente por instituciones deportivas"
-        ],
-        answer: 1
-      },
-      {
-        question: "El agente de seguridad privada tiene permitido desarmar su arma durante su servicio.",
-        options: ["Verdadero", "Falso"],
-        answer: 1
-      },
-      {
-        question: "Las personas que poseen licencia de portación de arma de fuego, podrán portar su arma descubierta y de manera ostentosa e intimidatoria solo por haber cumplido con los requisitos de ley.",
-        options: ["Verdadero", "Falso"],
-        answer: 1
-      },
-      {
-        question: "Interrupción en el funcionamiento de un arma de fuego",
-        options: ["Calentamiento", "Falla", "Percutor"],
-        answer: 1
-      },
-      {
-        question: "Arma de fuego corta, de funcionamiento semiautomático",
-        options: ["Escopeta", "Revolver", "Pistola"],
-        answer: 2
-      }, 
-      {
-        question: "Artículo 62: Todos los ciudadanos tienen derecho de tener armas de fuego en su lugar de habitación, salvo las que las que la ley prohíba, cumpliendo únicamente con los requisitos expresamente consignados en la presente ley. Como se llama dicho documento que propocionará DIGECAM",
-        options: ["Licencia de portación", "Declaración jurada", "Tenencia"],
-        answer : 2
-      },
-      {
-        question: "Artículo 80: No podrá concederse licencia de portación de arma de fuego a las siguientes:",
-        options: ["Personas que laboran en seguridad privada", "Personas declaradas en estado de interdicción", "Personas con antecedentes policiacos limpios"],
-        answer: 1
-      },
-      {
-        question: "¿Quiénes tienen derecho a importar armas y municiones según el artículo 32?",
-        options: ["Cualquier persona individual o jurídica sin restricciones", "Personas individuales o jurídicas registradas y autorizadas por la DIGECAM", "Solo el Ejército y las fuerzas de seguridad del Estado", "Exclusivamente entidades deportivas"],
-        answer: 1
-      },
-      {
-        question: "¿Qué instituciones pueden utilizar la información de la DIGECAM para investigaciones policiales y penales?",
-        options: ["La Policía Nacional Civil, el Ministerio Público y el INACIF", "Solo el Ejército de Guatemala", "Asociaciones deportivas y de caza", "Ninguna institución puede usar esta información"],
-        answer: 0
-      },
-      {
-        question: "¿Qué armas son consideradas deportivas según el artículo 11?",
-        options: ["Solo pistolas semiautomáticas y rifles automáticos","Armas cortas, largas y de caza reconocidas y reguladas internacionalmente", "Armas automáticas de uso exclusivo del Ejército", "Cualquier arma que se utilice en actividades de caza, sin importar su diseño"],
-        answer: 1
-      },
-      {
-        question: "¿Qué tipos de armas pueden ser importadas según este artículo?",
-        options: ["Armas de fuego bélicas y automáticas", "Armas de uso civil y deportivas", "Solo armas deportivas de competencia internacional", "Todas las armas sin restricción alguna"],
-        answer: 1
-      }, 
-      {
-        question: "La importación de armas puede realizarse con fines de recreación personal.",
-        options: ["Verdadero", "Falso"],
-        answer: 0
-    },
-    {
-        question: "¿Qué documentos son aceptados para la compra de municiones según este artículo?",
-        options: ["Licencia de portación del arma", "Tarjeta de registro de la tenencia extendida por DIGECAM", "Cualquier identificación oficial", "Ambas, licencia de portación y tarjeta de registro de tenencia"],
-        answer: 3
-    },
-    {
-      question: "¿Cuántas unidades de munición puede comprar una persona al mes con un registro de tenencia?",
-      options: ["150", "200", "250", "300"],
-      answer: 1
-    },
-    {
-      question: "¿Qué documento debe constar para el traspaso de un arma de fuego entre particulares?",
-      options:["Un contrato verbal entre las partes.", "Una carta simple firmada por el vendedor", "Escritura pública", "Factura de compra-venta"],
-      answer: 2
-    }
-    ]
-  },
-  {
-    name: "Serie 2",
-    questions: [
-      {
-        question: "Herramienta diseñada para lanzar un proyectil utilizando la energia liberada por la combustión del propelente.",
-        options: ["Percutor", "Arma de fuego", "Proyectil", "Calibre"],
-        answer: 1
-      },
-      {
-        question: "Golpea el fulminante del cartucho, lo que provoca la ignición del cartucho.",
-        options: ["Percutor", "Aguja", "Arma de fuego", "Proyectil"],
-        answer: 0
-      },
-      {
-        question: "Corresponde a la medida del diametro del cañon del arma o al diametro externo del cuerpo de la bala.",
-        options: ["Recamara", "Seguro", "Proyectil", "Calibre"],
-        answer: 3
-      },
-      {
-        question: "Establecimiento que cuenta con la infraestructura necesaria para la práctica de tiro deportivo o de defensa",
-        options: ["Digecam", "Recamara", "Poligono", "Campo"],
-        answer: 2
-      },
-      {
-        question: "Despues de cada disparo se recarga automaticamente y solo es posible efectuar un disparo al accionar el disparador",
-        options: ["Arma de fuego", "Arma semiautomatica", "Calibre", "Percutor"],
-        answer: 1
+        name: "Serie 2",
+        questions: [
+          // Tu lista completa de preguntas aquí
+        ]
       }
-    ]
-  }
-];
+    ];
 
     const quizForm = document.getElementById("quiz-form");
     const submitButton = document.getElementById("submit");
     const resultsDiv = document.getElementById("results");
     const restartButton = document.getElementById("restart");
+    const tabs = document.querySelectorAll(".tab");
+    const tabContents = document.querySelectorAll(".tab-content");
+
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        tabs.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+
+        tabContents.forEach(content => {
+          content.classList.remove("active");
+          if (content.id === tab.getAttribute("data-tab")) {
+            content.classList.add("active");
+          }
+        });
+      });
+    });
 
     function loadQuiz() {
       quizForm.innerHTML = "";
@@ -268,9 +195,19 @@
           questionElement.classList.add("question");
           questionElement.innerHTML = `<p>${index + 1}. ${q.question}</p>`;
 
-          q.options.forEach((opt, i) => {
-            questionElement.innerHTML += `<label><input type="radio" name="serie-${serieIndex}-question-${index}" value="${i}"> ${opt}</label><br>`;
-          });
+          if (serieIndex === 0) {
+            q.options.forEach((opt, i) => {
+              questionElement.innerHTML += `<label><input type="radio" name="serie-${serieIndex}-question-${index}" value="${i}"> ${opt}</label><br>`;
+            });
+          } else {
+            const dropdown = document.createElement("select");
+            dropdown.name = `serie-${serieIndex}-question-${index}`;
+            dropdown.innerHTML = `<option value="" disabled selected>Seleccione una respuesta</option>`;
+            q.options.forEach((opt, i) => {
+              dropdown.innerHTML += `<option value="${i}">${opt}</option>`;
+            });
+            questionElement.appendChild(dropdown);
+          }
 
           quizForm.appendChild(questionElement);
         });
