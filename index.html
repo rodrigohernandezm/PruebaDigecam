@@ -38,6 +38,32 @@
       margin: 0;
       font-size: 1.8em;
     }
+    .nav {
+      display: flex;
+      justify-content: space-around;
+      margin: 10px 0;
+      background: #ddd;
+      padding: 10px;
+      border-radius: 10px;
+    }
+    .nav button {
+      padding: 10px 20px;
+      background: #004a99;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+    .nav button:hover {
+      background: #003366;
+    }
+    .section {
+      display: none;
+    }
+    .section.active {
+      display: block;
+    }
     .ad {
       width: 100%;
       height: 100px;
@@ -47,49 +73,17 @@
       line-height: 100px;
       border-radius: 10px;
     }
-    .question {
-      margin-bottom: 20px;
+    .downloads {
       text-align: left;
     }
-    .result {
-      font-size: 1.2em;
-      margin-top: 20px;
-      text-align: justify;
+    .downloads a {
+      display: block;
+      margin: 5px 0;
+      color: #004a99;
+      text-decoration: none;
     }
-    button {
-      padding: 10px 20px;
-      margin: 10px;
-      background: #004a99;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1em;
-    }
-    button:hover {
-      background: #003366;
-    }
-    select, input[type="radio"] {
-      margin-top: 5px;
-    }
-    .correct-answer {
-      color: green;
-    }
-    .wrong-answer {
-      color: red;
-    }
-    @media (max-width: 600px) {
-      body {
-        font-size: 14px;
-      }
-      .container {
-        margin: 10px;
-        padding: 15px;
-      }
-      .ad {
-        height: 80px;
-        line-height: 80px;
-      }
+    .downloads a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -99,13 +93,36 @@
     <div class="header">
       <h1>Simulador Examen DIGECAM</h1>
     </div>
-    <form id="quiz-form"></form>
-    <button id="submit">Calificar</button>
-    <div id="results" class="result"></div>
-    <button id="restart" style="display: none;">Reiniciar</button>
+    <div class="nav">
+      <button onclick="showSection('quiz')">Simulador</button>
+      <button onclick="showSection('downloads')">Material de apoyo</button>
+    </div>
+    <div id="quiz" class="section active">
+      <form id="quiz-form"></form>
+      <button id="submit">Calificar</button>
+      <div id="results" class="result"></div>
+      <button id="restart" style="display: none;">Reiniciar</button>
+    </div>
+    <div id="downloads" class="section">
+      <h2>Material de apoyo</h2>
+      <div class="downloads">
+        <a href="https://github.com/rodrigohernandezm/PruebaDigecam/raw/main/guia_estudio.pdf" target="_blank">Guía de estudio</a>
+        <a href="https://github.com/rodrigohernandezm/PruebaDigecam/raw/main/ley_armas.pdf" target="_blank">Ley de armas</a>
+        <a href="https://github.com/rodrigohernandezm/PruebaDigecam/raw/main/manual_tecnico.pdf" target="_blank">Manual técnico</a>
+      </div>
+    </div>
   </div>
   <div class="ad">Publicidad</div>
 
+  <script>
+    function showSection(sectionId) {
+      document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+      });
+      document.getElementById(sectionId).classList.add('active');
+    }
+
+    const series = [
   <script>
     // Mantener el script existente para la lógica del cuestionario
     const series = [
@@ -230,86 +247,75 @@
   }
 ];
 
-const quizForm = document.getElementById("quiz-form");
-const submitButton = document.getElementById("submit");
-const resultsDiv = document.getElementById("results");
-const restartButton = document.getElementById("restart");
+    const quizForm = document.getElementById("quiz-form");
+    const submitButton = document.getElementById("submit");
+    const resultsDiv = document.getElementById("results");
+    const restartButton = document.getElementById("restart");
 
-function loadQuiz() {
-  quizForm.innerHTML = "";
-  resultsDiv.innerHTML = "";
-  submitButton.style.display = "inline";
-  restartButton.style.display = "none";
+    function loadQuiz() {
+      quizForm.innerHTML = "";
+      resultsDiv.innerHTML = "";
+      submitButton.style.display = "inline";
+      restartButton.style.display = "none";
 
-  series.forEach((serie, serieIndex) => {
-    const serieHeader = document.createElement("h2");
-    serieHeader.textContent = serie.name;
-    quizForm.appendChild(serieHeader);
+      series.forEach((serie, serieIndex) => {
+        const serieHeader = document.createElement("h2");
+        serieHeader.textContent = serie.name;
+        quizForm.appendChild(serieHeader);
 
-    serie.questions.forEach((q, index) => {
-      const questionElement = document.createElement("div");
-      questionElement.classList.add("question");
-      questionElement.innerHTML = `<p>${index + 1}. ${q.question}</p>`;
+        serie.questions.forEach((q, index) => {
+          const questionElement = document.createElement("div");
+          questionElement.classList.add("question");
+          questionElement.innerHTML = `<p>${index + 1}. ${q.question}</p>`;
 
-      if (serieIndex === 0) {
-        q.options.forEach((opt, i) => {
-          questionElement.innerHTML += `<label><input type="radio" name="serie-${serieIndex}-question-${index}" value="${i}"> ${opt}</label><br>`;
+          q.options.forEach((opt, i) => {
+            questionElement.innerHTML += `<label><input type="radio" name="serie-${serieIndex}-question-${index}" value="${i}"> ${opt}</label><br>`;
+          });
+
+          quizForm.appendChild(questionElement);
         });
-      } else {
-        const dropdown = document.createElement("select");
-        dropdown.name = `serie-${serieIndex}-question-${index}`;
-        dropdown.innerHTML = `<option value="" disabled selected>Seleccione una respuesta</option>`;
-        q.options.forEach((opt, i) => {
-          dropdown.innerHTML += `<option value="${i}">${opt}</option>`;
+      });
+    }
+
+    function gradeQuiz() {
+      let overallScore = 0;
+      let resultsHTML = "<h2>Resultados</h2>";
+
+      series.forEach((serie, serieIndex) => {
+        let score = 0;
+        resultsHTML += `<h3>${serie.name}</h3>`;
+
+        serie.questions.forEach((q, index) => {
+          const selectedOption = quizForm[`serie-${serieIndex}-question-${index}`].value;
+          if (selectedOption === "") {
+            resultsHTML += `<p>${index + 1}. ${q.question} - <span class="wrong-answer">Sin responder</span>. Respuesta correcta: <span class="correct-answer">${q.options[q.answer]}</span></p>`;
+          } else if (parseInt(selectedOption) === q.answer) {
+            score++;
+            resultsHTML += `<p>${index + 1}. ${q.question} - <span class="correct-answer">Correcto</span></p>`;
+          } else {
+            resultsHTML += `<p>${index + 1}. ${q.question} - <span class="wrong-answer">Incorrecto</span>. Respuesta correcta: <span class="correct-answer">${q.options[q.answer]}</span></p>`;
+          }
         });
-        questionElement.appendChild(dropdown);
-      }
 
-      quizForm.appendChild(questionElement);
-    });
-  });
-}
+        overallScore += score;
+        resultsHTML += `<p><strong>Puntaje de la serie "${serie.name}":</strong> ${score} / ${serie.questions.length}</p>`;
+      });
 
-function gradeQuiz() {
-  let overallScore = 0;
-  let resultsHTML = "<h2>Resultados</h2>";
+      const totalQuestions = series.reduce((acc, serie) => acc + serie.questions.length, 0);
+      resultsHTML += `<h3><strong>Puntaje total:</strong> ${overallScore} / ${totalQuestions}</h3>`;
+      resultsDiv.innerHTML = resultsHTML;
+      submitButton.style.display = "none";
+      restartButton.style.display = "inline";
+    }
 
-  series.forEach((serie, serieIndex) => {
-    let score = 0;
-    resultsHTML += `<h3>${serie.name}</h3>`;
+    function restartQuiz() {
+      loadQuiz();
+    }
 
-    serie.questions.forEach((q, index) => {
-      const selectedOption = quizForm[`serie-${serieIndex}-question-${index}`].value;
-      if (selectedOption === "") {
-        resultsHTML += `<p>${index + 1}. ${q.question} - <span class="wrong-answer">Sin responder</span>. Respuesta correcta: <span class="correct-answer">${q.options[q.answer]}</span></p>`;
-      } else if (parseInt(selectedOption) === q
-      .answer) {
-        score++;
-        resultsHTML += `<p>${index + 1}. ${q.question} - <span class="correct-answer">Correcto</span></p>`;
-      } else {
-        resultsHTML += `<p>${index + 1}. ${q.question} - <span class="wrong-answer">Incorrecto</span>. Respuesta correcta: <span class="correct-answer">${q.options[q.answer]}</span></p>`;
-      }
-    });
+    submitButton.addEventListener("click", gradeQuiz);
+    restartButton.addEventListener("click", restartQuiz);
 
-    overallScore += score;
-    resultsHTML += `<p><strong>Puntaje de la serie "${serie.name}":</strong> ${score} / ${serie.questions.length}</p>`;
-  });
-
-  const totalQuestions = series.reduce((acc, serie) => acc + serie.questions.length, 0);
-  resultsHTML += `<h3><strong>Puntaje total:</strong> ${overallScore} / ${totalQuestions}</h3>`;
-  resultsDiv.innerHTML = resultsHTML;
-  submitButton.style.display = "none";
-  restartButton.style.display = "inline";
-}
-
-function restartQuiz() {
-  loadQuiz();
-}
-
-submitButton.addEventListener("click", gradeQuiz);
-restartButton.addEventListener("click", restartQuiz);
-
-loadQuiz();
-</script>
+    loadQuiz();
+  </script>
 </body>
 </html>
