@@ -1,20 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1648026384334176"
-     crossorigin="anonymous"></script>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QF0050DMP2"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-QF0050DMP2');
-  </script>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prueba DIGECAM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Simulador de examen para obtener la licencia de portación de armas en DIGECAM Guatemala. Practica y prepárate para el examen oficial.">
+  <meta name="keywords" content="simulador examen DIGECAM, primera licencia portación arma, examen licencia armas Guatemala, DIGECAM Guatemala">
+  <meta name="author" content="Rodrigo Eduardo Hernández Morales">
+  <title>Simulador Examen DIGECAM</title>
   <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/rodrigohernandezm/PruebaDigecam/main/digecam_logo.png">
   <style>
     body {
@@ -86,13 +78,26 @@
     .wrong-answer {
       color: red;
     }
+    @media (max-width: 600px) {
+      body {
+        font-size: 14px;
+      }
+      .container {
+        margin: 10px;
+        padding: 15px;
+      }
+      .ad {
+        height: 80px;
+        line-height: 80px;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="ad">Publicidad</div>
   <div class="container">
     <div class="header">
-      <h1>Prueba de la DIGECAM</h1>
+      <h1>Simulador Examen DIGECAM</h1>
     </div>
     <form id="quiz-form"></form>
     <button id="submit">Calificar</button>
@@ -102,7 +107,8 @@
   <div class="ad">Publicidad</div>
 
   <script>
-const series = [
+    // Mantener el script existente para la lógica del cuestionario
+    const series = [
   {
     name: "Serie 1",
     questions: [
@@ -307,4 +313,3 @@ loadQuiz();
 </script>
 </body>
 </html>
-
