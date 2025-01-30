@@ -1,4 +1,481 @@
-        questionElement.classList.add("question");
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Simulador de examen para obtener la licencia de portación de armas en DIGECAM Guatemala. Practica y prepárate para el examen oficial.">
+  <meta name="keywords" content="simulador examen DIGECAM, primera licencia portación arma, examen licencia armas Guatemala, DIGECAM Guatemala">
+  <meta name="author" content="Rodrigo Hernández">
+  <meta name="robots" content="index, follow">
+  <title>Simulador de Examen DIGECAM - Practica para la Licencia de Portación de Armas en Guatemala</title>
+  <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/rodrigohernandezm/PruebaDigecam/main/digecam_logo.png">
+  <style>
+    :root {
+      --primary-color: #1a73e8;
+      --secondary-color: #1557a0;
+      --background-color: #f4f4f9;
+      --accent-color: #ff6f61;
+    }
+    body {
+      font-family: 'Arial', sans-serif;
+      background: var(--background-color);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      background: #fff;
+      padding: 20px;
+      margin: 20px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      width: 90%;
+      animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .header {
+      background: var(--primary-color);
+      color: white;
+      padding: 15px;
+      border-radius: 15px 15px 0 0;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      margin: 0;
+      font-size: 2em;
+      font-weight: bold;
+    }
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    .tab {
+      padding: 10px 20px;
+      cursor: pointer;
+      background: #ddd;
+      margin: 0 5px;
+      border-radius: 5px;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    .tab:hover {
+      background: var(--primary-color);
+      color: white;
+      transform: translateY(-2px);
+    }
+    .tab.active {
+      background: var(--primary-color);
+      color: white;
+    }
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .ad {
+      width: 100%;
+      height: 100px;
+      margin: 10px 0;
+      background: #ddd;
+      text-align: center;
+      line-height: 100px;
+      border-radius: 10px;
+      font-size: 1.2em;
+      color: #555;
+    }
+    .question {
+      margin-bottom: 20px;
+      text-align: left;
+      padding: 15px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .result {
+      font-size: 1.2em;
+      margin-top: 20px;
+      text-align: justify;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    button:hover {
+      background: var(--secondary-color);
+      transform: translateY(-2px);
+    }
+    select, input[type="radio"] {
+      margin-top: 5px;
+    }
+    .correct-answer {
+      color: green;
+      font-weight: bold;
+    }
+    .wrong-answer {
+      color: red;
+      font-weight: bold;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 14px;
+      }
+      .container {
+        margin: 10px;
+        padding: 15px;
+      }
+      .ad {
+        height: 80px;
+        line-height: 80px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="ad">Publicidad</div>
+  <div class="container">
+    <div class="header">
+      <h1>Simulador Examen DIGECAM</h1>
+    </div>
+    <div class="tabs">
+      <div class="tab active" data-tab="questions" role="tab" aria-selected="true">Preguntas</div>
+      <div class="tab" data-tab="materials" role="tab" aria-selected="false">Material de Apoyo</div>
+    </div>
+    <div id="questions" class="tab-content active">
+      <form id="quiz-form"></form>
+      <button id="submit">Calificar</button>
+      <div id="results" class="result"></div>
+      <button id="restart" style="display: none;">Reiniciar</button>
+    </div>
+    <div id="materials" class="tab-content">
+      <h2>Material de Apoyo</h2>
+      <p>Descarga documentos para prepararte mejor:</p>
+      <ul>
+        <li><a href="instructivo evaluacion primera licencia oficial.pdf" download>Instructivo evaluación primera licencia oficial DIGECAM</a></li>
+        <li><a href="Ley_de_Armas_y_Municiones.pdf" download>Ley de Armas y Municiones</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ad">Publicidad</div>
+
+  <script>
+    const bancoPreguntas = [
+      {
+        question: "¿Cuál es el objetivo principal de la Ley de Armas y Municiones?",
+        options: [
+          "Regular la tenencia y portación de armas",
+          "Prohibir el uso de armas en todo el país",
+          "Fomentar la venta de armas sin restricciones",
+          "Permitir el uso de armas bélicas a civiles"
+        ],
+        answer: 0,
+        articulo: "Artículo 2"
+      },
+      {
+        question: "¿Qué tipo de armas están clasificadas como de uso exclusivo del Ejército de Guatemala?",
+        options: [
+          "Armas deportivas",
+          "Armas de uso civil",
+          "Armas bélicas y de uso colectivo",
+          "Armas blancas"
+        ],
+        answer: 2,
+        articulo: "Artículo 5"
+      },
+      {
+        question: "¿Qué se considera un arma de fuego de uso civil?",
+        options: [
+          "Ametralladoras",
+          "Pistolas semiautomáticas y escopetas",
+          "Rifles automáticos",
+          "Granadas"
+        ],
+        answer: 1,
+        articulo: "Artículo 9"
+      },
+      {
+        question: "¿Qué actividades están prohibidas en relación con las armas de fuego bélicas?",
+        options: [
+          "Importación y exportación",
+          "Fabricación y venta",
+          "Tenencia y portación",
+          "Todas las anteriores"
+        ],
+        answer: 3,
+        articulo: "Artículo 10"
+      },
+      {
+        question: "¿Qué se entiende por armas deportivas y cuáles son sus características?",
+        options: [
+          "Armas diseñadas para la práctica de deportes y cacería",
+          "Armas automáticas de uso exclusivo militar",
+          "Armas blancas de uso personal",
+          "Armas químicas y biológicas"
+        ],
+        answer: 0,
+        articulo: "Artículo 11"
+      },
+      {
+        question: "¿Qué son las armas de acción por gases comprimidos y cómo se clasifican?",
+        options: [
+          "Armas que utilizan aire u otros gases para impulsar proyectiles",
+          "Armas que utilizan pólvora negra",
+          "Armas que funcionan con electricidad",
+          "Armas que utilizan explosivos"
+        ],
+        answer: 0,
+        articulo: "Artículo 12"
+      },
+      {
+        question: "¿Cómo se clasifican las armas blancas y cuáles son sus usos permitidos?",
+        options: [
+          "Uso personal, trabajo y deportivo",
+          "Uso exclusivo del Ejército",
+          "Uso industrial y bélico",
+          "Uso exclusivo de la Policía"
+        ],
+        answer: 0,
+        articulo: "Artículo 13"
+      },
+      {
+        question: "¿Qué se considera un explosivo y cómo se clasifican según su tipo de acción?",
+        options: [
+          "Deflagrantes y detonantes",
+          "Químicos y biológicos",
+          "Atómicos y nucleares",
+          "Todos los anteriores"
+        ],
+        answer: 0,
+        articulo: "Artículo 14"
+      },
+      {
+        question: "¿Qué son las armas químicas y cuál es su propósito principal?",
+        options: [
+          "Compuestos diseñados para afectar el organismo humano",
+          "Armas que utilizan energía nuclear",
+          "Armas que funcionan con electricidad",
+          "Armas que utilizan explosivos"
+        ],
+        answer: 0,
+        articulo: "Artículo 15"
+      },
+      {
+        question: "¿Qué se entiende por armas biológicas y qué efectos tienen?",
+        options: [
+          "Medios vivos diseñados para causar daño o exterminio",
+          "Armas que utilizan energía nuclear",
+          "Armas que funcionan con electricidad",
+          "Armas que utilizan explosivos"
+        ],
+        answer: 0,
+        articulo: "Artículo 16"
+      },
+      {
+        question: "¿Qué son las trampas bélicas y cómo se diferencian de las trampas de caza?",
+        options: [
+          "Artefactos ocultos para causar daño o capturar",
+          "Armas que utilizan energía nuclear",
+          "Armas que funcionan con electricidad",
+          "Armas que utilizan explosivos"
+        ],
+        answer: 0,
+        articulo: "Artículo 18"
+      },
+      {
+        question: "¿Qué se considera un arma experimental y cuál es su potencial?",
+        options: [
+          "Sistemas en desarrollo con potencial para causar daño",
+          "Armas que utilizan energía nuclear",
+          "Armas que funcionan con electricidad",
+          "Armas que utilizan explosivos"
+        ],
+        answer: 0,
+        articulo: "Artículo 19"
+      },
+      {
+        question: "¿Qué son las armas hechizas o artesanales y por qué están reguladas?",
+        options: [
+          "Armas fabricadas ilegalmente con potencial peligroso",
+          "Armas que utilizan energía nuclear",
+          "Armas que funcionan con electricidad",
+          "Armas que utilizan explosivos"
+        ],
+        answer: 0,
+        articulo: "Artículo 20"
+      },
+      {
+        question: "¿Cuál es la función principal de la DIGECAM?",
+        options: [
+          "Regular y controlar las armas y municiones",
+          "Fabricar armas de fuego",
+          "Vender armas a civiles",
+          "Entrenar a las fuerzas de seguridad"
+        ],
+        answer: 0,
+        articulo: "Artículo 22"
+      },
+      {
+        question: "¿Qué información debe registrar la DIGECAM sobre las armas de fuego?",
+        options: [
+          "Huellas balísticas y datos del propietario",
+          "Solo el número de serie",
+          "Solo el calibre del arma",
+          "Ninguna de las anteriores"
+        ],
+        answer: 0,
+        articulo: "Artículo 24"
+      },
+      {
+        question: "¿Qué es el banco de datos de huellas balísticas y para qué se utiliza?",
+        options: [
+          "Registro de huellas para investigaciones policiales",
+          "Base de datos de fabricantes de armas",
+          "Registro de ventas de municiones",
+          "Ninguna de las anteriores"
+        ],
+        answer: 0,
+        articulo: "Artículo 26"
+      },
+      {
+        question: "¿Qué requisitos deben cumplir las personas que deseen fabricar armas de fuego en el país?",
+        options: [
+          "Presentar solicitud y cumplir con requisitos técnicos",
+          "No se requiere ningún permiso",
+          "Solo registrarse en la municipalidad",
+          "Ninguna de las anteriores"
+        ],
+        answer: 0,
+        articulo: "Artículo 27"
+      },
+      {
+        question: "¿Qué se prohíbe en relación con el reacondicionamiento de municiones?",
+        options: [
+          "Comercializar municiones reacondicionadas",
+          "Usar municiones reacondicionadas para uso personal",
+          "Fabricar municiones reacondicionadas",
+          "Todas las anteriores"
+        ],
+        answer: 0,
+        articulo: "Artículo 30"
+      },
+      {
+        question: "¿Qué documentos se requieren para importar armas de fuego y municiones?",
+        options: [
+          "Solicitud y certificación de antecedentes",
+          "Solo la factura de compra",
+          "Solo el pasaporte",
+          "Ninguna de las anteriores"
+        ],
+        answer: 0,
+        articulo: "Artículo 34"
+      },
+      {
+        question: "¿Qué se debe hacer en caso de robo o pérdida de un arma de fuego registrada?",
+        options: [
+          "Dar aviso a la Policía Nacional Civil y DIGECAM",
+          "No hacer nada",
+          "Comprar una nueva arma",
+          "Ninguna de las anteriores"
+        ],
+        answer: 0,
+        articulo: "Artículo 66"
+      },
+      {
+        question: "¿Qué requisitos deben cumplir las personas que deseen portar armas de fuego?",
+        options: [
+          "Obtener licencia de portación de la DIGECAM",
+          "No se requiere ningún permiso",
+          "Solo registrarse en la municipalidad",
+          "Ninguna de las anteriores"
+        ],
+        answer: 0,
+        articulo: "Artículo 70"
+      },
+      {
+        question: "¿Qué sanciones existen para la portación ilegal de armas de fuego?",
+        options: [
+          "Prisión de 8 a 10 años",
+          "Multa económica",
+          "Ambas anteriores",
+          "Ninguna de las anteriores"
+        ],
+        answer: 2,
+        articulo: "Artículo 123"
+      },
+      {
+        question: "¿Qué se prohíbe en relación con la fabricación y venta de chalecos antibalas?",
+        options: [
+          "Comercialización sin autorización de la DIGECAM",
+          "Fabricación sin licencia",
+          "Ambas anteriores",
+          "Ninguna de las anteriores"
+        ],
+        answer: 2,
+        articulo: "Artículo 109"
+      },
+      {
+        question: "¿Qué se considera un delito de tráfico ilícito de armas y municiones?",
+        options: [
+          "Importación o exportación sin autorización",
+          "Venta ilegal de armas",
+          "Ambas anteriores",
+          "Ninguna de las anteriores"
+        ],
+        answer: 2,
+        articulo: "Artículo 120"
+      },
+      {
+        question: "¿Qué sanciones existen para la tenencia ilegal de armas de fuego bélicas?",
+        options: [
+          "Prisión de 10 a 15 años",
+          "Multa económica",
+          "Ambas anteriores",
+          "Ninguna de las anteriores"
+        ],
+        answer: 0,
+        articulo: "Artículo 112"
+      }
+    ];
+
+    const quizForm = document.getElementById("quiz-form");
+    const submitButton = document.getElementById("submit");
+    const resultsDiv = document.getElementById("results");
+    const restartButton = document.getElementById("restart");
+    const tabs = document.querySelectorAll(".tab");
+    const tabContents = document.querySelectorAll(".tab-content");
+
+    function getRandomQuestions() {
+      const shuffled = bancoPreguntas.sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, 25);
+    }
+
+    function loadQuiz() {
+      quizForm.innerHTML = "";
+      resultsDiv.innerHTML = "";
+      submitButton.style.display = "inline";
+      restartButton.style.display = "none";
+
+      const selectedQuestions = getRandomQuestions();
+
+      selectedQuestions.forEach((q, index) => {
+        const questionElement = document.createElement("div");
+        questionElement.classList.add("
+questionElement.classList.add("question");
         questionElement.innerHTML = `<p>${index + 1}. ${q.question}</p>`;
 
         q.options.forEach((opt, i) => {
