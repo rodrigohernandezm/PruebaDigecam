@@ -344,13 +344,24 @@
           questionElement.classList.add("question");
           questionElement.innerHTML = `<p>${index + 1}. ${q.question}</p>`;
 
-          const dropdown = document.createElement("select");
-          dropdown.name = `serie-${serieIndex}-question-${index}`;
-          dropdown.innerHTML = `<option value="" disabled selected>Seleccione una respuesta</option>`;
-          q.options.forEach((opt, i) => {
-            dropdown.innerHTML += `<option value="${i}">${opt}</option>`;
-          });
-          questionElement.appendChild(dropdown);
+          if (serieIndex === 0) {
+            // Serie 1: Botones de radio
+            q.options.forEach((opt, i) => {
+              questionElement.innerHTML += `
+                <label>
+                  <input type="radio" name="serie-${serieIndex}-question-${index}" value="${i}"> ${opt}
+                </label><br>`;
+            });
+          } else {
+            // Serie 2: Drop list
+            const dropdown = document.createElement("select");
+            dropdown.name = `serie-${serieIndex}-question-${index}`;
+            dropdown.innerHTML = `<option value="" disabled selected>Seleccione una respuesta</option>`;
+            q.options.forEach((opt, i) => {
+              dropdown.innerHTML += `<option value="${i}">${opt}</option>`;
+            });
+            questionElement.appendChild(dropdown);
+          }
 
           quizForm.appendChild(questionElement);
         });
