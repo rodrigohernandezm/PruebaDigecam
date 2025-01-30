@@ -474,8 +474,7 @@
 
       selectedQuestions.forEach((q, index) => {
         const questionElement = document.createElement("div");
-        questionElement.classList.add("
-questionElement.classList.add("question");
+        questionElement.classList.add("question");
         questionElement.innerHTML = `<p>${index + 1}. ${q.question}</p>`;
 
         q.options.forEach((opt, i) => {
@@ -513,7 +512,8 @@ questionElement.classList.add("question");
 
       if (incorrectAnswers.length > 0) {
         resultsHTML += `<h3>Artículos a repasar:</h3><ul>`;
-        incorrectAnswers.forEach((articulo) => {
+        const uniqueArticles = [...new Set(incorrectAnswers)];
+        uniqueArticles.forEach((articulo) => {
           resultsHTML += `<li>${articulo}</li>`;
         });
         resultsHTML += `</ul>`;
