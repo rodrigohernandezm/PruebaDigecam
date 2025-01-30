@@ -131,13 +131,6 @@
       color: red;
       font-weight: bold;
     }
-    .timer {
-      font-size: 1.5em;
-      font-weight: bold;
-      color: var(--accent-color);
-      margin: 10px 0;
-      text-align: center;
-    }
     @media (max-width: 600px) {
       body {
         font-size: 14px;
@@ -158,7 +151,6 @@
   <div class="container">
     <div class="header">
       <h1>Simulador Examen DIGECAM</h1>
-      <div class="timer" id="timer">Tiempo restante: 10:00</div>
     </div>
     <div class="tabs">
       <div class="tab active" data-tab="questions" role="tab" aria-selected="true">Preguntas</div>
@@ -335,25 +327,6 @@
     const restartButton = document.getElementById("restart");
     const tabs = document.querySelectorAll(".tab");
     const tabContents = document.querySelectorAll(".tab-content");
-    const timerElement = document.getElementById("timer");
-
-    let timeLeft = 600; // 10 minutos en segundos
-    let timerInterval;
-
-    function startTimer() {
-      timerInterval = setInterval(() => {
-        timeLeft--;
-        const minutes = Math.floor(timeLeft / 60);
-        const seconds = timeLeft % 60;
-        timerElement.textContent = `Tiempo restante: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-
-        if (timeLeft <= 0) {
-          clearInterval(timerInterval);
-          gradeQuiz();
-          alert("¡Tiempo terminado! Se calificarán tus respuestas.");
-        }
-      }, 1000);
-    }
 
     function loadQuiz() {
       quizForm.innerHTML = "";
@@ -371,19 +344,13 @@
           questionElement.classList.add("question");
           questionElement.innerHTML = `<p>${index + 1}. ${q.question}</p>`;
 
-          if (Array.isArray(q.options)) {
-            q.options.forEach((opt, i) => {
-              questionElement.innerHTML += `<label><input type="radio" name="serie-${serieIndex}-question-${index}" value="${i}"> ${opt}</label><br>`;
-            });
-          } else {
-            const dropdown = document.createElement("select");
-            dropdown.name = `serie-${serieIndex}-question-${index}`;
-            dropdown.innerHTML = `<option value="" disabled selected>Seleccione una respuesta</option>`;
-            q.options.forEach((opt, i) => {
-              dropdown.innerHTML += `<option value="${i}">${opt}</option>`;
-            });
-            questionElement.appendChild(dropdown);
-          }
+          const dropdown = document.createElement("select");
+          dropdown.name = `serie-${serieIndex}-question-${index}`;
+          dropdown.innerHTML = `<option value="" disabled selected>Seleccione una respuesta</option>`;
+          q.options.forEach((opt, i) => {
+            dropdown.innerHTML += `<option value="${i}">${opt}</option>`;
+          });
+          questionElement.appendChild(dropdown);
 
           quizForm.appendChild(questionElement);
         });
@@ -419,12 +386,9 @@
       resultsDiv.innerHTML = resultsHTML;
       submitButton.style.display = "none";
       restartButton.style.display = "inline";
-      clearInterval(timerInterval);
     }
 
     function restartQuiz() {
-      timeLeft = 600;
-      startTimer();
       loadQuiz();
     }
 
@@ -432,7 +396,6 @@
     restartButton.addEventListener("click", restartQuiz);
 
     loadQuiz();
-    startTimer();
   </script>
 </body>
 </html>
