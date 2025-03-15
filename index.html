@@ -175,84 +175,216 @@
   <div class="ad">Publicidad</div>
     <script defer>
     const bancoPreguntas = [
-      // Artículo 4
-      {
-        question: "¿Cómo se clasifican las armas según el Artículo 4?",
-        options: [
-          "De fuego, blancas y eléctricas",
-          "De fuego, explosivas, químicas, biológicas, atómicas, trampas bélicas y artesanales", 
-          "Solo armas blancas y de caza"
-        ],
-        answer: 1,
-        articulo: "Artículo 4"
-      },
-      {
-        question: "Las armas blancas deportivas incluyen:",
-        options: [
-          "Ballestas y arcos",
-          "Pistolas automáticas", 
-          "Explosivos industriales"
-        ],
-        answer: 0,
-        articulo: "Artículo 4"
-      },
-      {
-        question: "¿Qué armas están prohibidas para uso civil según este artículo?",
-        options: [
-          "Armas de aire comprimido",
-          "Armas biológicas y atómicas", 
-          "Escopetas de 24 pulgadas"
-        ],
-        answer: 1,
-        articulo: "Artículo 4"
-      },
+  // Artículo 4 (Clasificación de armas)
+  {
+    question: "Según el Artículo 4, ¿qué armas se consideran 'blancas'?",
+    options: [
+      "Ballestas, arcos y cuchillos de trabajo",
+      "Armas de fuego automáticas",
+      "Explosivos industriales"
+    ],
+    answer: 0,
+    articulo: "Artículo 4"
+  },
+  {
+    question: "¿Qué armas están prohibidas para uso civil según el Artículo 4?",
+    options: [
+      "Armas químicas y biológicas",
+      "Escopetas de 24 pulgadas",
+      "Pistolas de aire comprimido"
+    ],
+    answer: 0,
+    articulo: "Artículo 4"
+  },
+  {
+    question: "Las trampas bélicas son de uso exclusivo:",
+    options: [
+      "De cazadores profesionales",
+      "Militar",
+      "Empresas de seguridad privada"
+    ],
+    answer: 1,
+    articulo: "Artículo 4"
+  },
 
-      // Artículo 5
-      {
-        question: "El Ejército de Guatemala puede usar armas:",
-        options: [
-          "Solo de fabricación nacional",
-          "Bélicas o de uso exclusivo, salvo prohibiciones internacionales", 
-          "De uso civil modificadas"
-        ],
-        answer: 1,
-        articulo: "Artículo 5"
-      },
-      {
-        question: "Los fusiles de asalto táctico son de uso exclusivo de:",
-        options: [
-          "Civiles",
-          "Ejército de Guatemala", 
-          "Policía Municipal"
-        ],
-        answer: 1,
-        articulo: "Artículo 5"
-      },
-      {
-        question: "¿Qué armas NO puede usar el Ejército según este artículo?",
-        options: [
-          "Las prohibidas por tratados internacionales",
-          "Escopetas de caza", 
-          "Armas de aire comprimido"
-        ],
-        answer: 0,
-        articulo: "Artículo 5"
-      },
+  // Artículo 5 (Armas del Ejército)
+  {
+    question: "Según el Artículo 5, ¿qué armas son de uso exclusivo del Ejército?",
+    options: [
+      "Pistolas semiautomáticas",
+      "Armas de guerra y uso colectivo",
+      "Escopetas de cacería"
+    ],
+    answer: 1,
+    articulo: "Artículo 5"
+  },
+  {
+    question: "¿Puede el Ejército usar armas prohibidas por tratados internacionales?",
+    options: [
+      "Sí, en casos de emergencia",
+      "No, está expresamente prohibido",
+      "Solo con autorización presidencial"
+    ],
+    answer: 1,
+    articulo: "Artículo 5"
+  },
+  {
+    question: "Un fusil de asalto táctico es considerado:",
+    options: [
+      "Arma deportiva",
+      "Arma de uso exclusivo militar",
+      "Arma de uso civil"
+    ],
+    answer: 1,
+    articulo: "Artículo 5"
+  },
 
-      // ... (Continuación de todas las preguntas restantes en el mismo formato)
-      
-      // Artículo 138
-      {
-        question: "¿Cómo justificar la propiedad de armas sin documentación?",
-        options: [
-          "Con declaración jurada notariada",
-          "Con testigos familiares",
-          "No se permite justificar"
-        ],
-        answer: 0,
-        articulo: "Artículo 138"
-      }
-    ];
+  // Artículo 6 (Armas de fuerzas de seguridad)
+  {
+    question: "Según el Artículo 6, las fuerzas de seguridad pueden usar:",
+    options: [
+      "Solo armas no letales",
+      "Subametralladoras y rifles automáticos",
+      "Armas nucleares portátiles"
+    ],
+    answer: 1,
+    articulo: "Artículo 6"
+  },
+  {
+    question: "¿Qué arma NO está permitida para fuerzas de seguridad según este artículo?",
+    options: [
+      "Pistolas de ráfaga continua",
+      "Armas biológicas",
+      "Escopetas de orden público"
+    ],
+    answer: 1,
+    articulo: "Artículo 6"
+  },
+  {
+    question: "El uso de armas por fuerzas de seguridad está restringido a:",
+    options: [
+      "Defensa personal de los agentes",
+      "Cumplimiento de su función institucional",
+      "Entrenamientos privados"
+    ],
+    answer: 1,
+    articulo: "Artículo 6"
+  },
+
+  // Artículo 9 (Armas de uso civil)
+  {
+    question: "¿Qué escopetas son de uso civil según el Artículo 9?",
+    options: [
+      "Cañón ≤24 pulgadas y semiautomáticas",
+      "Cañón ≥36 pulgadas y automáticas",
+      "Con capacidad para 10 cartuchos"
+    ],
+    answer: 0,
+    articulo: "Artículo 9"
+  },
+  {
+    question: "Un rifle de acción mecánica es considerado:",
+    options: [
+      "Arma bélica",
+      "Arma de uso civil",
+      "Arma experimental"
+    ],
+    answer: 1,
+    articulo: "Artículo 9"
+  },
+  {
+    question: "¿Qué longitud máxima debe tener el cañón de una escopeta civil?",
+    options: [
+      "18 pulgadas",
+      "24 pulgadas",
+      "30 pulgadas"
+    ],
+    answer: 1,
+    articulo: "Artículo 9"
+  },
+
+  // Artículo 10 (Prohibiciones)
+  {
+    question: "Según el Artículo 10, ¿qué está prohibido para civiles?",
+    options: [
+      "Portar navajas de bolsillo",
+      "Fabricar armas automáticas",
+      "Usar chalecos antibalas"
+    ],
+    answer: 1,
+    articulo: "Artículo 10"
+  },
+  {
+    question: "La tenencia de armas bélicas por civiles está:",
+    options: [
+      "Permitida con licencia especial",
+      "Totalmente prohibida",
+      "Autorizada para coleccionistas"
+    ],
+    answer: 1,
+    articulo: "Artículo 10"
+  },
+  {
+    question: "¿Quién puede autorizar excepciones a las prohibiciones del Artículo 10?",
+    options: [
+      "La DIGECAM",
+      "Esta Ley",
+      "El Ministerio de Gobernación"
+    ],
+    answer: 1,
+    articulo: "Artículo 10"
+  },
+
+  // ... (Continúa el mismo formato para los 40+ artículos restantes)
+  
+  // Artículo 112 (Tenencia ilegal de armas bélicas)
+  {
+    question: "La tenencia ilegal de armas bélicas se sanciona con:",
+    options: [
+      "Multa de Q5,000",
+      "Prisión de 10 a 15 años",
+      "Servicio comunitario"
+    ],
+    answer: 1,
+    articulo: "Artículo 112"
+  },
+  {
+    question: "¿Qué se considera arma bélica según este artículo?",
+    options: [
+      "Pistolas de aire comprimido",
+      "Explosivos de uso militar",
+      "Cuchillos de caza"
+    ],
+    answer: 1,
+    articulo: "Artículo 112"
+  },
+
+  // Artículo 123 (Portación ilegal de armas civiles)
+  {
+    question: "Portar un arma de uso civil sin licencia se sanciona con:",
+    options: [
+      "Prisión de 8-10 años",
+      "Multa de Q1,000",
+      "Curso de capacitación"
+    ],
+    answer: 0,
+    articulo: "Artículo 123"
+  },
+
+  // Artículo 138 (Justificación de propiedad)
+  {
+    question: "Para registrar un arma sin documentos según Artículo 138:",
+    options: [
+      "Se requiere declaración jurada notariada",
+      "Basta con testigos",
+      "Es imposible registrarla"
+    ],
+    answer: 0,
+    articulo: "Artículo 138"
+  }
+
+  // ... (Agregar 90+ preguntas siguiendo el mismo patrón)
+];
         const quizForm = document.getElementById("quiz-form");
     const submitButton = document.getElementById("submit");
     const resultsDiv = document.getElementById("results");
