@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,51 +10,151 @@
   <title>Simulador Examen DIGECAM</title>
   <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/rodrigohernandezm/PruebaDigecam/main/digecam_logo.png"/>
   <link rel="stylesheet" href="styles.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      color: #333;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .header {
+      text-align: center;
+      padding: 30px 0;
+    }
+    .header h1 {
+      font-size: 2em;
+      color: #004085;
+    }
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #ccc;
+    }
+    .tab {
+      padding: 10px 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      color: #004085;
+      border-bottom: 3px solid transparent;
+      transition: border-bottom 0.3s;
+    }
+    .tab.active {
+      border-bottom: 3px solid #007bff;
+      color: #007bff;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    #quiz-form {
+      margin-bottom: 20px;
+    }
+    #submit, #restart {
+      padding: 10px 20px;
+      background: #007bff;
+      border: none;
+      color: #fff;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    #submit:hover, #restart:hover {
+      background: #0056b3;
+    }
+    .progress-bar {
+      height: 20px;
+      background: #e9ecef;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+    .progress-bar::after {
+      content: '';
+      display: block;
+      height: 100%;
+      width: 0;
+      background-color: #007bff;
+      transition: width 0.3s;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .ad {
+      margin: 20px 0;
+      background-color: #e2e3e5;
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9em;
+      color: #6c757d;
+    }
+    section#materials ul {
+      padding-left: 20px;
+    }
+    section#materials ul li {
+      margin-bottom: 10px;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      color: #666;
+      background-color: #f1f1f1;
+    }
+  </style>
 </head>
 <body>
-  <div class="ad" aria-label="Publicidad" loading="lazy"></div>
+  <div class="ad" aria-label="Publicidad">Espacio publicitario</div>
+  
   <div class="container">
     <header class="header">
       <h1>Simulador Examen DIGECAM</h1>
     </header>
 
     <nav role="tablist" class="tabs">
-      <button role="tab"
-              id="tab-questions"
-              class="tab active"
-              aria-controls="questions"
-              aria-selected="true">Preguntas</button>
-      <button role="tab"
-              id="tab-materials"
-              class="tab"
-              aria-controls="materials"
-              aria-selected="false">Material de Apoyo</button>
+      <button role="tab" id="tab-questions" class="tab active" aria-controls="questions" aria-selected="true">Preguntas</button>
+      <button role="tab" id="tab-materials" class="tab" aria-controls="materials" aria-selected="false">Material de Apoyo</button>
     </nav>
 
-    <section id="questions"
-             role="tabpanel"
-             aria-labelledby="tab-questions"
-             class="tab-content active">
-      <form id="quiz-form" novalidate></form>
-      <button id="submit" type="button">Calificar</button>
-      <div id="progress" role="progressbar" aria-valuemin="0" aria-valuemax="25" aria-valuenow="0" class="progress-bar"></div>
-      <div id="results" class="result" aria-live="polite"></div>
-      <button id="restart" type="button" style="display:none">Reiniciar</button>
-    </section>
+    <main>
+      <section id="questions" role="tabpanel" aria-labelledby="tab-questions" class="tab-content active">
+        <form id="quiz-form" novalidate></form>
+        <button id="submit" type="button">Calificar</button>
+        <div id="progress" role="progressbar" aria-valuemin="0" aria-valuemax="25" aria-valuenow="0" class="progress-bar"></div>
+        <div id="results" class="result" aria-live="polite"></div>
+        <button id="restart" type="button" style="display:none">Reiniciar</button>
+      </section>
 
-    <section id="materials"
-             role="tabpanel"
-             aria-labelledby="tab-materials"
-             class="tab-content">
-      <h2>Material de Apoyo</h2>
-      <p>Descarga documentos para prepararte mejor:</p>
-      <ul>
-        <li><a href="instructivo evaluacion primera licencia oficial.pdf" download>Instructivo evaluación DIGECAM</a></li>
-        <li><a href="Ley_de_Armas_y_Municiones.pdf" download>Ley de Armas y Municiones</a></li>
-      </ul>
-    </section>
+      <section id="materials" role="tabpanel" aria-labelledby="tab-materials" class="tab-content">
+        <h2>Material de Apoyo</h2>
+        <p>Descarga documentos para prepararte mejor:</p>
+        <ul>
+          <li><a href="instructivo evaluacion primera licencia oficial.pdf" download>Instructivo evaluación DIGECAM</a></li>
+          <li><a href="Ley_de_Armas_y_Municiones.pdf" download>Ley de Armas y Municiones</a></li>
+        </ul>
+      </section>
+    </main>
   </div>
-  <div class="ad" aria-label="Publicidad" loading="lazy"></div>
+
+  <div class="ad" aria-label="Publicidad">Publicidad secundaria</div>
+
+  <footer>
+    &copy; 2025 Rodrigo Hernández. Todos los derechos reservados.
+  </footer>
 
   <!-- Analytics y Ads -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QF0050DMP2"></script>
